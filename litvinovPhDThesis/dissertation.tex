@@ -1,21 +1,26 @@
+% При форматировании данной работы был использован набор шаблонов
+% https://github.com/AndreyAkinshin/Russian-Phd-LaTeX-Dissertation-Template
+% (большое спасибо его автору, надеюсь, отсутствие информации о лицензии
+% по ссылке выше не следует трактовать как запрет на использование).
+
 \documentclass[a4paper,12pt]{report}
 
-\input{packages}		% Подключаемые пакеты
-\input{styles}			% Пользовательские стили
+\input{packages}
+\input{styles}
 
 \begin{document}
 
-\input{names}			% Переопределение именований
+\input{names}
 
-\input{title}			% Титульный лист
-\input{contents}		% Оглавление
-%\input{introduction}	% Введение
-%\input{part1}			% Глава 1
-%\input{part2}			% Глава 2
-%\input{part3}			% Глава 3
-%\input{conclusion}		% Заключение
-%\input{lists}			% Списки таблиц и изображений
-\input{references}		% Список литературы
-%\input{appendix}		% Приложения
+\input{title}
+\input{contents}
+%\input{introduction} % 100%, 3 проход
+\input{part1}
+%\input{part2}
+%\input{part3}
+%\input{part4}
+%\input{part5}
+%\input{conclusion}
+\input{references}
 
 \end{document}
