@@ -9,6 +9,7 @@
 \usepackage[utf8]{inputenc}				% Кодировка utf8
 \usepackage[english, russian]{babel}	% Языки: русский, английский
 %\usepackage{pscyr}						% Красивые русские шрифты
+\usepackage{extsizes} % Шрифты покрупнее
 
 %%% Математические пакеты %%%
 \usepackage{amsthm,amsfonts,amsmath,amssymb,amscd} % Математические дополнения от AMS
@@ -43,8 +44,8 @@
 %%% Оглавление %%%
 \usepackage{tocloft}
 
-% Для форматирования заголовков
-\usepackage{sectsty}
+% Для центрирования заголовков. Пакет sectsty не работает с пакетом extsizes, поэтому здесь не используется.
+\usepackage[center]{titlesec}
 
 % Номера страниц по центру сверху
 \usepackage{fancyhdr}

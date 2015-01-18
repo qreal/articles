@@ -33,9 +33,6 @@
 % Таблицы покрасивее
 \tabulinesep=1.2mm
 
-% Центрирование заголовков (ГОСТ Р 7.0.11-2011, 5.3.5)
-\allsectionsfont{\centering}
-
 % Печать через полтора интервала (ГОСТ Р 7.0.11-2011, 5.3.6)
 \linespread{1.3}
 
@@ -55,3 +52,6 @@
 \AtBeginEnvironment{acronym}{%
   \renewcommand*\descriptionlabel[1]{\hspace\labelsep
                                 \normalfont\bfseries\color{blue} #1}}
+
+\titleformat{\chapter}[display]
+  {\normalfont\large\bfseries\filcenter}{\chaptertitlename\ \thechapter}{20pt}{\Large}

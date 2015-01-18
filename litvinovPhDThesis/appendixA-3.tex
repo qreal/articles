@@ -16,7 +16,7 @@
 
 \subsection{Постановка задачи}
 Различные встроенные устройства играют большую роль в нашей жизни, однако задача их 
-разработки всё ещё остаётся сложной и трудоёмкой. В 80-х годах двадцатого века появились языки Verilog и VHDL
+разработки всё ещё остаётся сложной и трудоёмкой. В 80-х годах двадцатого века появились языки Verilog и VHDL%
 %TODO: Сноски
 , которые и по сей день остаются фактическим стандартом в деле разработки аппаратного 
 обеспечения. Эти языки позволяют описать устройство аналогично коду обычной программы, 
@@ -60,7 +60,7 @@
 из себя последовательность однотактовых шагов, выполняющихся, если некоторые условия 
 (получение сообщения, состояние ресурсов процесса) истинны. Обработчики могут начинать 
 своё исполнение на каждом такте, на котором выполнены условия его старта, вне зависимости 
-от того, выполняются они уже или нет. Пример описания процесса
+от того, выполняются они уже или нет. Пример описания процесса%
 %TODO (из работы [ссылка])
 :
 
@@ -159,7 +159,7 @@ process W = Wrapper(aProc);
 
 \begin{figure} [ht]
 	\begin{center}
-		\includegraphics[width=0.6\textwidth]{part5/5.3/umlStructuredClassifier.png}
+		\includegraphics[width=0.6\textwidth]{appendixA/A.3/umlStructuredClassifier.png}
 		\caption{Структурированный классификатор UML 2.}
 		\label{image:umlStructuredClassifier}
 	\end{center}
@@ -199,7 +199,7 @@ process W = Wrapper(aProc);
 
 \begin{figure} [ht]
 	\begin{center}
-		\includegraphics[width=0.8\textwidth]{part5/5.3/systemCExample.png}
+		\includegraphics[width=0.8\textwidth]{appendixA/A.3/systemCExample.png}
 		\caption{Пример нотации профиля для SystemC.}
 		\label{image:systemCExample}
 	\end{center}
@@ -260,7 +260,7 @@ UML --- целевой язык не является строго говоря 
 
 \begin{figure} [ht]
 	\begin{center}
-		\includegraphics[width=0.9\textwidth]{part5/5.3/processTypesMetamodel.png}
+		\includegraphics[width=0.9\textwidth]{appendixA/A.3/processTypesMetamodel.png}
 		\caption{Метамодель диаграммы типов процессов.}
 		\label{image:processTypesMetamodel}
 	\end{center}
@@ -277,7 +277,7 @@ UML --- целевой язык не является строго говоря 
 
 \begin{figure} [ht]
 	\begin{center}
-		\includegraphics[width=0.7\textwidth]{part5/5.3/processTypesNotation.png}
+		\includegraphics[width=0.7\textwidth]{appendixA/A.3/processTypesNotation.png}
 		\caption{Нотация процессов.}
 		\label{image:processTypesNotation}
 	\end{center}
@@ -288,7 +288,7 @@ UML --- целевой язык не является строго говоря 
 
 \begin{figure} [ht]
 	\begin{center}
-		\includegraphics[width=0.7\textwidth]{part5/5.3/functorsNotation.png}
+		\includegraphics[width=0.7\textwidth]{appendixA/A.3/functorsNotation.png}
 		\caption{Нотация функторов.}
 		\label{image:functorsNotation}
 	\end{center}
@@ -304,14 +304,14 @@ UML --- целевой язык не является строго говоря 
 
 \begin{figure} [ht]
 	\begin{center}
-		\includegraphics[width=0.5\textwidth]{part5/5.3/functorApplication.png}
+		\includegraphics[width=0.5\textwidth]{appendixA/A.3/functorApplication.png}
 		\caption{Применение функтора.}
 		\label{image:functorApplication}
 	\end{center}
 \end{figure}
 
 Для того, чтобы проиллюстрировать применение диаграммы типов процессов, рассмотрим 
-содержательный пример --- задачу об арбитре динамических приоритетов 4 в 1
+содержательный пример --- задачу об арбитре динамических приоритетов 4 в 1%
 %TODO: из [ссылка] 
 . Задача формулируется следующим образом: на один из четырёх входов поступают данные, 
 первый параметр пришедших данных --- приоритет. Если в одном такте данные поступили 
@@ -325,7 +325,7 @@ UML --- целевой язык не является строго говоря 
 
 \begin{figure} [ht]
 	\begin{center}
-		\includegraphics[width=\textwidth]{part5/5.3/arbiter4To1ProcessTypes.png}
+		\includegraphics[width=\textwidth]{appendixA/A.3/arbiter4To1ProcessTypes.png}
 		\caption{Диаграмма типов процессов для задачи "`Арбитр 4 в 1"'.}
 		\label{image:arbiter4To1ProcessTypes}
 	\end{center}
@@ -357,7 +357,7 @@ UML --- целевой язык не является строго говоря 
 
 \begin{figure} [ht]
 	\begin{center}
-		\includegraphics[width=0.4\textwidth]{part5/5.3/portMappingsExample.png}
+		\includegraphics[width=0.4\textwidth]{appendixA/A.3/portMappingsExample.png}
 		\caption{Процесс на диаграмме отображения портов.}
 		\label{image:portMappingsExample}
 	\end{center}
@@ -365,7 +365,7 @@ UML --- целевой язык не является строго говоря 
 
 \begin{figure} [ht]
 	\begin{center}
-		\includegraphics[width=0.5\textwidth]{part5/5.3/arbiter4To1PortMappings.png}
+		\includegraphics[width=0.5\textwidth]{appendixA/A.3/arbiter4To1PortMappings.png}
 		\caption{Диаграмма отображения портов для задачи "`Арбитр 4 в 1"'.}
 		\label{image:arbiter4To1PortMappings}
 	\end{center}
@@ -448,7 +448,7 @@ end
 
 \begin{figure} [ht]
 	\begin{center}
-		\includegraphics[width=0.2\textwidth]{part5/5.3/arbiter4To1FunctorApplication.png}
+		\includegraphics[width=0.2\textwidth]{appendixA/A.3/arbiter4To1FunctorApplication.png}
 		\caption{Применение функтора "`Арбитр 4 к 1"'.}
 		\label{image:arbiter4To1FunctorApplication}
 	\end{center}
@@ -470,8 +470,7 @@ process Arbiter = Arbiter4to1(DynamicArbiter);
 возникшие при разработке, во многом послужили мотивацией для реализации тех возможностей 
 метатехнологии QReal, которые представляются в данной работе. Кроме того, визуальный язык 
 QReal:HaSCoL далее использовался как пример для апробации различных новых возможностей 
-QReal, например, "`метамоделирования на лету"'.
-%TODO: [ссылка на диплом Жени][ссылка на курсовую Птахиной].
+QReal, например, "`метамоделирования на лету"'~\cite{takun2011diploma, ptakhina2013course}.
 
 С точки зрения введённой в данной работе классификации созданные языки являются статическими 
 текстовографическими языками. В данном случае использование текстовой нотации не так 
