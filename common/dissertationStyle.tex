@@ -8,14 +8,16 @@
 \sloppy					% Избавляемся от переполнений
 \clubpenalty=10000		% Запрещаем разрыв страницы после первой строки абзаца
 \widowpenalty=10000		% Запрещаем разрыв страницы после последней строки абзаца
+\hyphenpenalty=2000
 
 %%% Библиография %%%
 \makeatletter
-\bibliographystyle{../common/utf8gost705u}	% Оформляем библиографию в соответствии с ГОСТ 7.0.5
+\bibliographystyle{ugost2003}	% Оформляем библиографию в соответствии с ГОСТ 7.1-2003
+\def\bbl@main@language{russian}
 \renewcommand{\@biblabel}[1]{#1.}	% Заменяем библиографию с квадратных скобок на точку:
 \makeatother
 \newcites{vak}{В изданиях из списка ВАК РФ}  % Объявляем дополнительную библиографию для ВАКовских статей, надо в автореферате
-\bibliographystylevak{../common/utf8gost705u}  % Определяем для неё стиль
+\bibliographystylevak{ugost2003}  % Определяем для неё стиль
 
 %%% Изображения %%%
 \graphicspath{{images/}} % Пути к изображениям
@@ -57,6 +59,3 @@
 
 \titleformat{\chapter}[display]
   {\normalfont\large\bfseries\filcenter}{\chaptertitlename\ \thechapter}{20pt}{\Large}
-  
-% Запрет переносов (просто для красоты)
-\hyphenpenalty=100
