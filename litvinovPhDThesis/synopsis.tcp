@@ -6,7 +6,7 @@ Version=4
 MainFile=synopsis.tex
 UseBibTeX=1
 UseMakeIndex=0
-ActiveProfile=LaTeX ⇨ PDF
-ProjectLanguage=en
-ProjectDialect=US
+ActiveProfile=XeLaTeX ⇨ PDF
+ProjectLanguage=ru
+ProjectDialect=RU
 
