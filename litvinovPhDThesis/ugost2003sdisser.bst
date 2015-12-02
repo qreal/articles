@@ -1,8 +1,5 @@
 %% Modified by Yurii Litvinov to conform to local requirements
-%% - Authors count that triggers "et al." increased from 4 to 6,
-%%   since in some important works I am on 4-th or 5-th place in
-%%   authors list.
-
+%% - Removed publisher information from electronic resource references
 
 %%
 %% This is file `ugost2003s.bst',
@@ -1558,7 +1555,6 @@ FUNCTION {online}
   editor.organization.after
   new.sentence
   new.block
-  output.address.publisher
   format.date output
   new.block
   output.eprint.url
