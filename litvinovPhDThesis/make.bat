@@ -1,7 +1,7 @@
-xelatex dissertation.tex
-bibtex dissertation.aux
-xelatex dissertation.tex
-xelatex dissertation.tex
+rem xelatex dissertation.tex
+rem bibtex dissertation.aux
+rem xelatex dissertation.tex
+rem xelatex dissertation.tex
 
 xelatex synopsis.tex
 bibtex synopsis.aux 
