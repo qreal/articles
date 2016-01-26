@@ -1,8 +1,8 @@
-F=formalMethodsInRobotics
+F=surveyOnFormalMethodsInRobotics
 B=bibliography
 PDFLATEX=pdflatex -interaction=batchmode -shell-escape
 
-.PHONY: bib all clean
+.PHONY: pdf bib all clean
 
 pdf:
 	$(PDFLATEX) $(F).tex
@@ -10,7 +10,8 @@ pdf:
 bib:
 	bibtex $(F)
 
-all: pdf bib
+all: pdf bib 
+	$(PDFLATEX) $(F).tex
 	$(PDFLATEX) $(F).tex
 
 clean:
