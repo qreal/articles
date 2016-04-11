@@ -4,6 +4,7 @@
 \usepackage[english,russian]{babel}
 \usepackage{amssymb,amsfonts,amsmath,mathtext}
 \usepackage{cite,enumerate,float,indentfirst}
+\usepackage{tabu}
 
 \usetheme{Boadilla}
 \usecolortheme{beaver}
@@ -129,11 +130,27 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Графические (визуальные) языки}
+    Графический язык --- множество диаграмм, составленных из конечного множества 
+    графических элементов.
+    \begin{itemize}
+        \item Неграфовые
+        \item Графовые
+        \begin{itemize}
+            \item Используется формализм помеченных мультиграфов
+                $$G = (V, A, e, L, M)$$
+                $$e: A \rightarrow V \times V$$
+                $$M: V \cup A \rightarrow L$$
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
     \frametitle{Метамоделирование}
-    \vspace*{-0.3cm}
+    \vspace*{-0.35cm}
     \begin{figure}
     	\begin{center}
-    		\includegraphics[width=0.65\textwidth]{images/part1/metalevels.png}
+    		\includegraphics[width=0.85\textwidth]{images/presentation/metalevels.png}
     	\end{center}
     \end{figure}
 \end{frame}
@@ -151,30 +168,250 @@
 
 \begin{frame}
     \frametitle{Существующие DSM-платформы}
-    \begin{itemize}
-        \item ???
-    \end{itemize}
-\end{frame}
+    \framesubtitle{Наличие визуальных языков для задания инструментальных средств}
+    \begin{table}[ht]
+    \begin{scriptsize}
+        \tabulinesep=0.9mm
+        \vspace*{-0.30cm}
+    	\begin{tabu} {| X[1.2 l p] | X[1.2 c p] | X[1 c p] | X[1.1 c p] | X[1 c p] | X[1 c p] |}
+    		\tabucline-
+    		 Название                    & Метаредактор & Конкретный синтаксис & Ограничения & Трансфор-мации & Интерпре-тация \\
+    		\tabucline-
+    		\everyrow{\tabucline-}
+    		MetaEdit+                    & Да           & Да                   & Нет         & ---           & ---           \\
+    		Eclipse Modeling Project     & Да           & Да                   & Нет         & Нет           & Нет           \\
+    		Generic Modeling Environment & Да           & Нет                  & Нет         & Да            & ---           \\
+    		PSL/PSA                      & Нет          & ---                  & ---         & ---           & ---           \\
+    		AToM3                        & Да           & Да                   & ---         & Да            & Да            \\
+    		Microsoft Modeling SDK       & Да           & Нет                  & Нет         & ---           & ---           \\
+    		Pounamu                      & Да           & Да                   & ---         & Нет           & ---           \\
+    		DOME                         & Да           & Нет                  & ---         & Нет           & ---           \\
+    		MetaLanguage                 & Да           & ?                    & ?           & ?             & ---           \\
+    		\textbf{QReal}               & \textbf{Да}  & \textbf{Да}          & \textbf{Да} & \textbf{Да}   & \textbf{Да}
+    		\label{tab:existingPlatformsCondensed}
+    	\end{tabu}
+    \end{scriptsize}
+\end{table}\end{frame}
 
 \begin{frame}
     \frametitle{<<Классическая>> методология разработки}
-    \begin{itemize}
-        \item ???
-    \end{itemize}
+    \vspace*{-0.35cm}
+    \begin{figure}
+    	\begin{center}
+    		\raisebox{0.4cm}{
+        		\includegraphics[width=0.20\textwidth]{images/presentation/classicalModel.png}
+            }
+    		\hspace{0.1cm}
+    		\includegraphics[width=0.75\textwidth]{images/presentation/classicalModelIteration.png}
+    	\end{center}
+    \end{figure}
 \end{frame}
 
 \begin{frame}
     \frametitle{<<Метамоделирование на лету>>}
+    \begin{columns}[onlytextwidth]
+       \begin{column}{0.6\textwidth}
+         \begin{itemize}
+             \item Создание визуального языка прямо в процессе рисования диаграммы, 
+                 без метаредактора
+             \item Быстрое прототипирование языка с непосредственным участием будущего пользователя
+             \item Доработка созданного средства в ``классическом'' метаредакторе
+         \end{itemize}
+       \end{column}
+       \begin{column}{0.3\textwidth}
+            \begin{figure}
+            	\begin{center}
+            		\raisebox{0.4cm}{
+                		\includegraphics[width=0.9\textwidth]{images/presentation/metamodelingOnFly.png}
+                    }
+            	\end{center}
+            \end{figure}
+       \end{column}
+​  \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{<<Метамоделирование на лету>>, особенности}
     \begin{itemize}
-        \item ???
+        \item Режим метамоделирования на лету скрывает от пользователя метамодель
+        \begin{itemize}
+            \item Интерпретация метамодели
+            \item Пользовательский интерфейс, расширяющий обычный редактор диаграмм
+            \begin{itemize}
+                \item Добавление, удаление, редактирование внешнего вида и элементов и их свойств
+            \end{itemize}
+        \end{itemize}
+        \item ``Бедность'' возможностей
+        \begin{itemize}
+            \item Отсутствие возможности задания синтаксических и семантических ограничений
+            \item ``Плоская'' метамодель
+            \item Разумные умолчания
+        \end{itemize}        
     \end{itemize}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Реализация, компоненты}
-    \begin{itemize}
-        \item ???
-    \end{itemize}
+    \frametitle{Реализация, компоненты системы QReal}
+    \begin{figure}
+        \begin{center}
+      		\includegraphics[width=\textwidth]{images/presentation/components.png}
+        \end{center}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Метаредактор}
+    \begin{figure}
+        \begin{center}
+      		\includegraphics[width=\textwidth]{images/presentation/metaeditor.png}
+        \end{center}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Редактор формы фигур}
+    \begin{figure}
+        \begin{center}
+      		\includegraphics[width=0.8\textwidth]{images/presentation/shapeEditor.png}
+        \end{center}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Редакторы ограничений и правил рефакторингов}
+    \begin{figure}
+        \begin{center}
+      		\includegraphics[width=0.5\textwidth]{images/presentation/constraints.png}
+      		\hspace*{1cm}
+      		\includegraphics[width=0.4\textwidth]{images/presentation/refactorings.png}
+        \end{center}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\large Реализация: <<метамоделирование на лету>>}
+    \begin{figure}
+       	\begin{center}
+           	\raisebox{1cm}{
+       	  		\includegraphics[width=0.8\textwidth]{images/presentation/metamodelingOnFlyImplementation.png}
+       	  	}
+       	\end{center}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Применение: QReal:Robots}
+    \framesubtitle{Задача}
+    \begin{columns}[onlytextwidth]
+       \begin{column}{0.7\textwidth}
+            \begin{itemize}
+                \item Преподавание информатики с использованием исполнителя
+                \item Робототехнические конструкторы
+                \begin{itemize}
+                    \item Lego Mindstorms NXT
+                    \item Lego Mindstorms EV3
+                    \item ТРИК
+                \end{itemize}
+                \item Средства визуального программирования
+                \begin{itemize}
+                    \item NXT-G
+                    \item Robolab
+                    \item Microsoft Robotics Developer Studio
+                \end{itemize}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.3\textwidth}
+            \begin{figure}
+            	\begin{center}
+             		\includegraphics[width=\textwidth]{images/presentation/trik.png}\\
+             		\hspace*{0.5cm}\includegraphics[width=\textwidth]{images/presentation/trik2.png}
+            	\end{center}
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Применение: QReal:Robots}
+    \framesubtitle{Визуальный язык}
+    \begin{columns}[onlytextwidth]
+       \begin{column}{0.5\textwidth}
+            \begin{figure}
+            	\begin{center}
+             		\includegraphics[width=\textwidth]{images/presentation/language1.png}\\
+             		\vspace{0.5cm}\includegraphics[width=\textwidth]{images/presentation/language2.png}\\
+             		\vspace{0.5cm}\includegraphics[width=\textwidth]{images/presentation/language4.png}
+            	\end{center}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{figure}
+            	\begin{center}
+             		\includegraphics[width=0.9\textwidth]{images/presentation/language3.png}
+            	\end{center}
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Применение: QReal:Robots}
+    \framesubtitle{Метамодель}
+    \begin{figure}
+        \begin{center}
+        	\includegraphics[width=0.9\textwidth]{images/presentation/robotsMetamodel.png}
+        \end{center}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Применение: QReal:HaSCoL}
+    \begin{columns}[onlytextwidth]
+       \begin{column}{0.35\textwidth}
+            \begin{figure}
+            	\begin{center}
+             		\includegraphics[width=0.8\textwidth]{images/presentation/hascol1.png}\\
+            	\end{center}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            \begin{figure}
+            	\begin{center}
+             		\includegraphics[width=0.25\textwidth]{images/presentation/hascol3.png}\\
+             		\vspace{0.5cm}\includegraphics[width=\textwidth]{images/presentation/hascol2.png}
+            	\end{center}
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Применение: QReal:Ubiq}
+    \begin{figure}
+       	\begin{center}
+        	\includegraphics[width=0.6\textwidth]{images/presentation/ubiq.png}
+       	\end{center}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Эксперимент}
+    \framesubtitle{Сравнение скорости создания инструментов}
+    \begin{table}[ht]
+        \footnotesize
+        \tabulinesep=0.9mm
+    	\begin{tabu} {| X[1 l p] | X[1 l p] | X[1 l p] | X[1 l p] |X[1.1 l p] |}
+    		\tabucline-
+    		 Название DSM-платформы           & Редактор  & Генератор  & Ограничения  & Рефакторинги  \\
+    		\tabucline-
+    		\everyrow{\tabucline-}
+    		MetaEdit+                         & 20 минут  & 30 минут   & ---          & ---           \\
+    		Eclipse Modeling Project          & 2 часа    & 50 минут   & 17 минут     & 40 минут      \\
+    		QReal (метаредактор)              & 15 минут  & 15 минут   & 10 минут     & 15 минут      \\
+    		QReal (метамоделирование на лету) & 5 минут   & 15 минут   & ---          & ---
+    		\label{tab:experiment}
+    	\end{tabu}
+    \end{table}
 \end{frame}
 
 \begin{frame}
