@@ -27,6 +27,7 @@
 \usepackage{tabularx}
 \usepackage{footnote}
 \makesavenoteenv{tabular}
+\makesavenoteenv{table}
 
 \newcommand*\rot{\rotatebox{-90}}
 
@@ -667,22 +668,24 @@ URL: http://github.com/qreal/qreal (дата обращения: 24.04.2016г)}.
 материалами будет решена в результате тесного сотрудничества с педагогами.
 
 \section*{Заключение}
+
 В работе был представлен сравнительный анализ большого количества популярных на сегодняшний день образовательных 
 сред визуального программирования роботов. Была предложена система критериев, по которой оцениваются среды из 
 различных классов (среды для дошкольников и учеников начальных классов, и среды для среднего и высшего образования, 
 в том числе виртуальные исполнители). Результаты сравнения сред из второго класса по такой системе 
 критериев приведены в табл.~\ref{table:results} (исполнители не включены).
 
+\pagebreak
 
 \begin{center}
-  \label{table:results}
+\begin{table}[ht]
   \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | c | c | c | }
   	\hline
   	& \rot{LabView}  & \rot{NXT-G} & \rot{Robolab} & \rot{EV3-G} & \rot{MRDS} & \rot{Scratch} & \rot{12Blocks} & \rot{ROBO Pro} & \rot{Scribbler PM~} & \rot{TRIK Studio} \\ \hline
 
 	Визуальный язык & + & + & + & + & + & + & + & + & + & + \\ \hline
 	Мат. выражения & + & -- & + & + & + & $\pm$ & + & + & -- & + \\ \hline
-	Модель вычислений\footnote{У означает <<поток управления>>, Д --- <<поток данных>>} & Д & Д & У & Д & Д & У & У & У & У & У \\ \hline
+	Модель вычислений\footnote{У означает <<поток управления>>, Д --- <<поток данных>>} & \scriptsize{Д} & \scriptsize{Д} & \scriptsize{У} & \scriptsize{Д} & \scriptsize{Д} & \scriptsize{У} & \scriptsize{У} & \scriptsize{У} & \scriptsize{У} & \scriptsize{У} \\ \hline
 	Алг. конструкции & 3 & 1 & 3 & 3 & 3 & 3 & 3 & 3 & 1 & 2 \\ \hline
 	Интерпретация  & + & + & + & + & + & + & + & + & + & + \\ \hline
 	Автономное исполнение & + & + & + & + & -- & $\pm$ & + & + & + & + \\ \hline
@@ -696,15 +699,17 @@ URL: http://github.com/qreal/qreal (дата обращения: 24.04.2016г)}.
 	Бесплатность & -- & + & -- & $\pm$ & $\pm$ & + & -- & + & + & + \\ \hline
 	Платформы\footnote{За недостатком места используются сокращения. Каждая буква соответствует операционной систему. W означает <<Windows>>, M означает <<Mac OS X>>, L --- <<Linux>>, w --- <<web>>}  & \tiny{WLM} & \tiny{WM} & \tiny{WM} & \tiny{WM} & \tiny{W} & \tiny{WLMw} & \tiny{WLM} & \tiny{W} & \tiny{W} & \tiny{WLM} \\ \hline
 	Конструкторы\footnote{За недостатком места используются сокращения. Каждая буква соответствует конструктору. N означает <<NXT>>, E означает <<EV3>>, A --- <<Arduino>>, f --- <<fischertechnik>>, T --- <<TRIK>>} & \tiny{NE} & \tiny{N} & \tiny{N} & \tiny{NE} & \tiny{Nf...} & \tiny{NEA} & \tiny{NAS} & \tiny{f} & \tiny{S} & \tiny{NET} \\ \hline
-	Лицензия\footnote{О означает <<открытая>>, П --- <<проприетарная>>} & П & П & П & П & П & О & П & П & П & О \\ \hline
+	Лицензия\footnote{О означает <<открытая>>, П --- <<проприетарная>>} & \scriptsize{П} & \scriptsize{П} & \scriptsize{П} & \scriptsize{П} & \scriptsize{П} & \scriptsize{О} & \scriptsize{П} & \scriptsize{П} & \scriptsize{П} & \scriptsize{О} \\ \hline
 	Развивается & + & -- & -- & + & -- & + & -- & + & + & + \\
 
   	\hline
   \end{tabular}
-
-
+  \caption{Сравнение визуальных сред программирования роботов.}
+  \label{table:results}
+\end{table}
 \end{center}
 
+\pagebreak
 
 \bibliographystyle{utf8gost705u}
 \bibliography{robotsVisualProgrammingTools}
