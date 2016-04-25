@@ -25,6 +25,8 @@
 \usepackage{multirow}
 \usepackage{subfig}
 \usepackage{tabularx}
+\usepackage{footnote}
+\makesavenoteenv{tabular}
 
 \newcommand*\rot{\rotatebox{-90}}
 
@@ -679,9 +681,9 @@ URL: http://github.com/qreal/qreal (дата обращения: 24.04.2016г)}.
   	& \rot{LabView}  & \rot{NXT-G} & \rot{Robolab} & \rot{EV3-G} & \rot{MRDS} & \rot{Scratch} & \rot{12Blocks} & \rot{ROBO Pro} & \rot{Scribbler PM~} & \rot{TRIK Studio} \\ \hline
 
 	Визуальный язык & + & + & + & + & + & + & + & + & + & + \\ \hline
-	Мат. выражения текстом & + & -- & + & + & + & $\pm$ & + & + & -- & + \\ \hline
+	Мат. выражения & + & -- & + & + & + & $\pm$ & + & + & -- & + \\ \hline
 	Модель вычислений\footnote{У означает <<поток управления>>, Д --- <<поток данных>>} & Д & Д & У & Д & Д & У & У & У & У & У \\ \hline
-	Поддержки алг. конструкций & 3 & 1 & 3 & 3 & 3 & 3 & 3 & 3 & 1 & 2 \\ \hline
+	Алг. конструкции & 3 & 1 & 3 & 3 & 3 & 3 & 3 & 3 & 1 & 2 \\ \hline
 	Интерпретация  & + & + & + & + & + & + & + & + & + & + \\ \hline
 	Автономное исполнение & + & + & + & + & -- & $\pm$ & + & + & + & + \\ \hline
 	Генерация кода & C & -- & -- & -- & C\# & -- & $\pm$\footnote{Код, генерируемый для Lego NXT не читаем, для других платформ, если читаемый код 	генерируется, то на языке C} & -- & -- & +\footnote{Поддерживаются C, ШАЯ, JavaScript, F\#} \\ \hline
@@ -692,8 +694,8 @@ URL: http://github.com/qreal/qreal (дата обращения: 24.04.2016г)}.
 	Проверка задач  & -- & -- & -- & -- & -- & -- & -- & -- & -- & + \\ \hline
 	Русификация & + & + & $\pm$ & + & -- & + & -- & + & + & + \\ \hline
 	Бесплатность & -- & + & -- & $\pm$ & $\pm$ & + & -- & + & + & + \\ \hline
-	Платформы\footnote{За недостатком места используются сокращения. Каждая буква соответствует операционной систему. W означает <<Windows>>, M означает <<Mac OS X>>, L --- <<Linux>>, w --- <<web>>}  & WLM & WM & WM & WM & W & WLMw & WLM & W & W & WLM \\ \hline
-	Конструкторы\footnote{За недостатком места используются сокращения. Каждая буква соответствует конструктору. N означает <<NXT>>, E означает <<EV3>>, A --- <<Arduino>>, f --- <<fischertechnik>>, T --- <<TRIK>>} & NE & N & N & NE & Nf... & NEA & NAS & f & S & NET \\ \hline
+	Платформы\footnote{За недостатком места используются сокращения. Каждая буква соответствует операционной систему. W означает <<Windows>>, M означает <<Mac OS X>>, L --- <<Linux>>, w --- <<web>>}  & \tiny{WLM} & \tiny{WM} & \tiny{WM} & \tiny{WM} & \tiny{W} & \tiny{WLMw} & \tiny{WLM} & \tiny{W} & \tiny{W} & \tiny{WLM} \\ \hline
+	Конструкторы\footnote{За недостатком места используются сокращения. Каждая буква соответствует конструктору. N означает <<NXT>>, E означает <<EV3>>, A --- <<Arduino>>, f --- <<fischertechnik>>, T --- <<TRIK>>} & \tiny{NE} & \tiny{N} & \tiny{N} & \tiny{NE} & \tiny{Nf...} & \tiny{NEA} & \tiny{NAS} & \tiny{f} & \tiny{S} & \tiny{NET} \\ \hline
 	Лицензия\footnote{О означает <<открытая>>, П --- <<проприетарная>>} & П & П & П & П & П & О & П & П & П & О \\ \hline
 	Развивается & + & -- & -- & + & -- & + & -- & + & + & + \\
 
