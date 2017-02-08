@@ -306,78 +306,73 @@ Last notable feature of parsing/interpreting subsystem is extensive use of cachi
 \section{Automatic checking of solution correctness}
 \label{chapter:constraintsChecker}
 
-Последняя важная подсистема, о которой будет рассказано в данной работе --- механизм автоматической проверки заданий на TRIK Studio. Модель мира в двумерном симуляторе может быть превращена специальными средствами среды в упражнение, распространяемое между учениками. Для этого достаточно задать два набора описаний:
+Last important subsystem which is described in this paper is automatic checker of constraints for TRIK Studio programs. This system allows to turn a world model in a simulator to an exercise with specified success and failure conditions, which can be shared among students and solutions (in a form of visual programs) can be automatically checked against these success conditions in simulator, thus providing feedback without an intervention from a teacher. To create an exercise one needs to specify two things:
 
 \begin{itemize}
-    \item описание того, какие части упражнения нельзя менять ученику (модель мира, начальное положение робота и его датчиков, сам набор датчиков, привязку моторов и физические настройки симуляции),
-    \item программа проверки корректности решения задачи.
+    \item what parts of a simulated worlds are fixed and can not be changed by a student (walls and figures on a floor, robot starting position, sensors and their orientations and so on);
+    \item program on a special constraints definition language which specifies success and failure conditions for a solution.
 \end{itemize}
 
-Программа проверки ограничений описывается на специальном текстовом XML-подобном языке. Данный язык интересен сам по себе и может рассматриваться как отдельный результат работы. Программа на таком языке представляет собой множество событий $\{ e_1, e_2, ..., e_n \}$, где каждое событие 
-$e_i$ представляет собой тройку $(id_i, c_i, T_i)$:
+Constraints are described on a special XML-based definition language. Program on this language is a set of events $\{ e_1, e_2, ..., e_n \}$, where each event $e_i$ is a triple $(id_i, c_i, T_i)$:
 
 \begin{itemize}
-    \item $id_i$ --- идентификатор события: внутренняя метка, по которой другие события могут получать информацию о событии $e_i$, может быть пустым;
-    \item $c_i$ --- условие срабатывания события, представляющее собой формулу логики первого порядка без кванторов, об интерпретации предикатных и функциональных символах которой будет рассказано ниже;
-    \item $T_i$ --- упорядоченный список элементарных триггеров $[ t_{i_1}, t_{i_2}, ..., t_{i_n} ]$. Элементарный триггер задает действие, выполняемое в момент истинности условия срабатывания события $c_i$.
+    \item $id_i$ --- event id: internal label by which other parts of a program may refer to this event, can be empty;
+    \item $c_i$ --- condition, under which the event is raised, a formula in a first-order predicate calculus without quantification;
+    \item $T_i$ --- ordered set of triggers $[ t_{i_1}, t_{i_2}, ..., t_{i_n} ]$. Each trigger specifies an action that shall be done when event condition $c_i$ becomes true.
 \end{itemize}
 
-Одно событие задается одним элементом в XML-спецификации программы. Каждое событие в текстовом описании 
-программы может быть представлено либо в \textit{каноническом} виде, либо в виде \textit{ограничения}. Событие в канонической форме --- уже описанная тройка $(id_i, c_i, T_i)$.
+Each event is specified by its XML node in a program. Event can be specified in a \textit{canonical} form, or in a form of a \textit{constraint}. Event in canonical form --- already described triple $(id_i, c_i, T_i)$. Event in constraint form is a triple $(id_j, c_j, message_j)$. Constraint is interpreted as an event $(id_i, $$\neg$$c_i, [ fail(message_j) ])$, where $fail(message_j)$ --- trigger that stops simulation and reports error message $message_j$. In other words, constraint in an event that is raised when given condition is violated and reports this violation to an user. Events in a form of constraints are added to a language for pragmatical reasons only, because it is much more convenient to specify conditions like "`robot $x$ shall not leave area $a$"' or "`robot $x$ shall have a set of sensors $s$ connected"' as constraints instead of events. Special case of such constraint --- time limit. Time limit shall be specified for each constraint definition program so that constraints checker will not run simulation indefinite amount of time if all constraints are satisfied but success event is never triggered. Checker verifies that time limit is set before execution of program, and if not, considers it as semantic error.
 
-Событие в форме ограничения --- это тройка $(id_j, c_j, message_j)$. Ограничение интерпретируется как событие $(id_i, $$\neg$$c_i, [ fail(message_j) ])$, где $fail(message_j)$ --- триггер прекращения исполнения имитационной модели с выдачей сообщения об ошибке $message_j$. Другими словами, ограничение --- это событие, которое срабатывает, когда нарушается заданное условие, и которое сообщает пользователю об этом нарушении. Описание события в форме ограничения введено в язык из чисто прагматических соображений, так как на практике удобно описывать утверждения вида <<робот $x$ не должен покидать пределы зоны $z$>> или <<к роботу $x$ должен быть подключен набор датчиков $s$>> именно в терминах ограничений, а не событий. Особый случай такого ограничения --- лимит времени на выполнение программы. Лимит времени должен быть указан в любой программе проверки ограничений имитационной модели TRIK Studio, так как процесс проверки, очевидно, не может осуществляться бесконечное время. Наличие ограничения на лимит времени проверяется как часть синтаксиса языка.
-
-Коротко опишем множество используемых в языке предикатных и функциональных символов и элементарных триггеров. Предикатные символы можно поделить на несколько групп:
+Let's briefly describe predicates,functional symbols and elementary triggers used in a language. Predicate symbols can be divided into these groups.
 \begin{itemize}
-    \item Предикаты сравнения значений термов $>$, $<$, $\leq$, $\geq$, $=$, $\neq$.
-    \item Пространственные предикаты. Имеют вид <<предмет $x$ находится внутри области $y$>>.
-    \item Предикаты состояния событий $settedUp(id_i)$ и $dropped(id_i)$, описывающие состояние события 
-            (активно/неактивно). В активном состоянии событие может быть выполнено, в неактивном оно не выполнит триггеры даже при выполнении условия срабатывания события.
-    \item Предикат времени $timer(t)$, который становится истинным спустя $t$ отсчетов модельного времени и остается истинным после, а до этого момента ложен.
-    \item Прочие предикаты, выражаемые уже описанными и введенные исключительно в целях удобства.
+    \item Comparison predicates $>$, $<$, $\leq$, $\geq$, $=$, $\neq$.
+    \item Spatial predicates. They have form "`item $x$ is located inside area $y$"'.
+    \item Event state predicates $settedUp(id_i)$ and $dropped(id_i)$, denoting active and inactive events accordingly. Active events can be raised when their corresponding condition is satisfied, events in inactive state will not be raised (and their triggers will not be executed) even when condition is satisfied.
+    \item Time predicate $timer(t)$, which is initially false, becomes true after $t$ ticks of model time and stays true afterwards.
+    \item Other predicates that can be expressed by already described predicates, they are introduced for pragmatical reasons only.
 \end{itemize}
 
-Функциональные символы бывают следующих видов:
+Functional symbols can be the following.
 \begin{itemize}
-    \item Константы различных типов (целочисленные, с плавающей точкой, строковые, логические, цветовые, геометрические и пр.).
-    \item Символ $variableValue(id)$ для получения значения переменной с идентификатором $id$. Переменные могут быть полезны для реализации сложной логики проверки, например, при подсчете числа проделанных роботом итераций.
-    \item Арифметические и геометрические операции над значениями других термов, например, модуль числа, подсчет расстояния между двумя точками или выпуклая оболочка фиксированного множества точек.
-    \item Символы сравнения формы двух объектов с использованием расстояния Левенштейна, полезные при проверке схожести фигур, нарисованных роботом и на его дисплее.
-    \item Символ $objectState(path)$ --- основное средство получения информации о состоянии устройств робота и свойствах предмета из внешнего мира. Аргумент $path$ --- путь к желаемому свойству в иерархии объектов в модели мира. Такой путь будет преобразован системой в последовательность получений значений свойств объектов C++, реализующих предметы в модели мира посредством механизма рефлексии Qt.
+    \item Constants of different types (integer, floating-point, string, colour, geometrical and so on).
+    \item Symbol $variableValue(id)$ that denotes a value of a variable with identifier $id$. Variables are internal to the constraints checking program (i.e. do not represent simulation state) and can be useful for implementing complex conditions like counting of times that robot does some action.
+    \item Arithmetical and geometrical operations over other values --- absolute value of a number, for example, or a distance between two points.
+    \item Comparison of forms of two figures using Levenshtein distance. It is useful to compare images drawn on robot display to an ideal image specified in exercise.
+    \item Symbol $objectState(path)$ allows to get state of a simulated robot devices or objects of a simulated world. $path$ argument shall contain a path to a desired property in a hierarchy of objects in world model. Such path will be translated into a sequence of C++ object property references using Qt Reflection mechanism, so this symbol provides a bridge between constraints definition and simulator.
 \end{itemize}
 
-Наконец, элементарные триггеры делятся на следующие категории:
+Finally, elementary triggers can be the following:
 \begin{itemize}
-    \item $success$, $fail(message)$ --- управление состоянием проверки. Первый помечает результат проверки как успешный, второй --- как неудавшийся, отображая заданное сообщение об ошибке.
-    \item Триггеры задания значения переменных и изменения значения свойств элементов имитационной модели мира.
-    \item Триггеры управления состоянием событий. Каждое событие может активировать или деактивировать другое событие или себя; с помощью этого можно задавать сложную логику проверки.
+    \item $success$, $fail(message)$ control checker state. First trigger reports exercise as successfully checked, second reports error and marks simulation result as a failure;
+    \item triggers that set variable values and change properties of a simulated world or a robot devices (complementary to $objectState$ function), they allow, for example, to set random number generator seed to make possible testing of solution which uses random number generator;
+    \item triggers that control event state --- every state can activate or deactivate every other state (including itself), it allows to specify rather complex checking scenarios, like visiting waypoints in a correct order within given amount of time.
 \end{itemize}
 
-Пример простейшей программы на языке задания ограничений имитационной модели мира в TRIK Studio приведён в листинге~\ref{code:constraints}.
+An example of a simple program in constraints description language is given in~\ref{code:constraints}.
 
-\captionsetup[figure]{name=Листинг}
+\captionsetup[figure]{name=Listing}
 \setcounter{figure}{0}
 
 \begin{figure*}[!t]
 \begin{verbatim}
-<!-- Корневой элемент, означающий начало программы проверки ограничений -->
+<!-- Root element, contains all constraints -->
 <constraints>
 
-    <!-- Обязательное в любой программе ограничение на время работы -->
+    <!-- Mandatory time limit constraint -->
     <timelimit value="2000"/>
 
-    <!-- Ограничение на местоположение робота -->
-    <constraint failMessage="Робот покинул допустимую область!">
+    <!-- Constraint on robot location -->
+    <constraint failMessage="Robot left the allowed area!">
         <inside objectId="robot1" regionId="myspace"/>
     </constraint>
 
-    <!-- Условие успешности программы: робот должен сказать "Привет" с помощью
-        встроенного механизма синтезирования речи и нарисовать улыбку на дисплее -->
+    <!-- Success criteria for a program: robot must say "Hello" using speech synthesis 
+		     and draw a smile on a screen -->
     <event settedUpInitially="true">
         <conditions glue="and">
             <equals>
                 <objectState object="robot1.shell.lastPhrase"/>
-                <string value="Привет"/>
+                <string value="Hello"/>
             </equals>
             <equals>
                 <objectState object="robot1.display.smiles"/>
@@ -391,15 +386,15 @@ $e_i$ представляет собой тройку $(id_i, c_i, T_i)$:
 
 </constraints>
 \end{verbatim}
-\caption{Пример программы проверки ограничений имитационной модели мира в TRIK Studio.}
+\caption{Example of constraints specification in TRIK Studio simulator model.}
 \label{code:constraints}
 \end{figure*}
 
-Архитектурно система проверки ограничений представляет собой отдельно стоящий модуль, использующий в качестве разделяемых библиотек ядро и имитационную модель системы TRIK Studio. Использование механизма рефлексии Qt для доступа к свойствам объектов имитационной модели позволяет намного проще масштабировать саму модель: при расширении возможностей системы или добавлении новых симулируемых устройств новые объекты и свойства будут немедленно доступны из языка описания ограничений, без дополнительной модификации кода проверяющей системы. Тестовая система подписывается на события имитационной модели подобно тому, как это делает представление симулятора (в смысле архитектуры MVC), и вызывает проверку ограничений на каждом отсчете модельного времени. При этом проверяются только активные ограничения, которых на практике в каждый конкретный момент времени немного, поэтому общая скорость работы симулятора при наличии проверяющей программы практически не меняется.
+Architecturally constraints checking system is a standalone module which uses TRIK Studio core and simulator model as shared libraries. Simulator model and robotic kit support in TRIK Studio are frequently extended with new devices, options and features, so Qt Reflection mechanism is used to access objects and their properties from constraint specifications. It allows to extend TRIK Studio core without modifications in constraints checking system itself, new properties immediately become available from constraints description language. Constraints checker subscribes to events from simulation model as another view (in MVC pattern sense) and checks constraints on every tick of model time. It may seem very ineffective, but only active constraints are checked and only a few constraints are active at any given time, so a simulation with constraints checking has almost the same performance as without it.
 
-Описанный язык удобен для задания пространственных и временных ограничений на поведение системы. Он является значительно более удобным и выразительным, чем, к примеру, язык темпоральных логик или топологико-темпоральных логик, используемых для описания формальных ограничений на поведение робота в работах последних лет~\cite{mordvinov2016formal,kress2007s,бугайченко2007разработка,дмитриев2013адаптация}. При этом язык не тьюринг-полон (на нем, к примеру, нельзя выразить нормальные алгоритмы Маркова из-за отсутствия в языке средств работы с коллекциями произвольной длины, что делает невозможным реализацию на нем замены в строке), это говорит о возможности автоматического анализа интересных свойств программ на нем. Ко всему прочему, подмножество этого языка может использоваться для описания требований к программе для последующей ее формальной верификации. В будущих версиях TRIK Studio планируется реализация визуального конструктора ограничений на этом языке. Появление такого конструктора и интеграция мощного верификатора дадут возможность формально доказывать корректность визуальных программ, не написав ни одной формулы формальной логики. Подробное исследование этого вопроса --- тема для будущих работ.
+Described language proven to be quite effective at specifying spatial and temporal constraints on a system state. It is more expressive than, for example, temporal logic or topological temporal logic languages which are used for specification of formal constraints on robot behaviour in recent works~\cite{mordvinov2016formal,kress2007s,бугайченко2007разработка,дмитриев2013адаптация}. And this language is not Turing-complete (for example, it can not express Markov algorithms due to absence of means to work with arbitrary length collections, so it can not express string replacement), it opens a possibility to statically analyse non-trivial properties of programs on it. In addition to this, a subset of a language can be used for specification of requirements for a program to be used in formal verification. Plans for next versions of TRIK Studio include creating visual editor for constraints, which, combined with some verification engine, will possibly allow to formally prove correctness of visual programs without the need to actually write temporal logic formulae. Investigation of this idea is a promising future work direction.
 
-Система проверки ограничений используется для функционального тестирования среды на сервере системы непрерывной интеграции. Об автоматизированном тестировании среды TRIK Studio подробнее рассказано в работе~\cite{mordvinov2016testing}.
+Constraints checking system is also used for functional testing of TRIK Studio on continuous integration server. More on this (and other details of TRIK Studio testing) see in~\cite{mordvinov2016testing} (in Russian).
 
 This functionality is also used as an automatic checker of exercises for MOOC on Stepik platform\footnote{https://stepik.org/s/7qe3xj4Z}. Without such checker it would be impossible to provide feedback to possibly large number of students, making course much less interactive. From a technical point of view checker is a set of scripts which launch "`headless"' interpreter (i.e. interpreter without GUI) on a correct field with correct constraints. Checker is hooked up into Stepik infrastructure and runs in a separate Docker\footnote{https://www.docker.com/} container when new solution is submitted. Checker has several fields and corresponding constraint descriptions for each task (from one to five), each solution is checked against all those fields to test that it works in different situations and is not hardcoded. Fields are hidden from the user but error reporter output does gets displayed, so students can guess what went wrong (well, theoretically. But it's better than traditional ACM ICPC system, where only a number of incorrect test and a general type of error are reported).
 
