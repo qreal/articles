@@ -10,12 +10,8 @@
 \renewcommand{\rmdefault}{cmr}
 \renewcommand{\ttdefault}{cmtt}
 
-\usepackage{polyglossia}
-\setdefaultlanguage[babelshorthands=true]{russian}
-
 \usepackage{fontspec}
 \setmainfont{FreeSerif}
-\newfontfamily{\russianfonttt}[Scale=0.7]{DejaVuSansMono}
 
 \usepackage{caption}
 \usepackage{float}
@@ -417,7 +413,8 @@ Technical description of TRIK Studio robots programming system was presented. TR
 
 Future work consists of two major development vectors: improvements of an existing system and new research projects based on it. Improvement tasks are gathered from teachers, pupils and students which use TRIK Studio, and there is already several hundreds of such tasks tracked. For example, support for new robotic platforms (such as Arduino, STM32), improvements for simulator (more precise physics simulation, multiagent systems simulation and so on), support for more textual languages (like Python, Pascal). Research projects that are currently using TRIK Studio as a technical base include research in domain-specific visual languages field and formal methods field of study. For example, we are creating technology to automatically generate visual domain-specific language using metainformation from packages of robotic middleware (ROS~\cite{quigley2009ros} is currently considered), that visual language will be able to link middleware nodes together thus configuring environment for a particular robot. Research in formal methods aims to formalize semantics of used visual languages to be able to apply formal verification and synthesis methods to diagrams.
 
-\bibliographystyle{utf8gost705u}
+%\bibliographystyle{utf8gost705u}
+\bibliographystyle{ieeetran}
 \bibliography{trikStudioEnglish}
 
 \end{document}
