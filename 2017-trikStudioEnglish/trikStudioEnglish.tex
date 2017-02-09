@@ -174,19 +174,19 @@ Making the architecture highly modular allowed to provide flexible customization
 \section{Communications with robot controllers}
 \label{chapter:communications}
 
-Одна из важных подсистем TRIK Studio --- это модуль взаимодействия с контроллерами роботов по тому или иному физическому протоколу. На рисунке~\ref{image:commonTSArch} это один из самых низких <<слоев>> абстракции среды. API модуля коммуникаций предоставляет следующие операции:
+This section discusses the subsystem handling TRIK Studio interaction with robots over different protocols. It is one of the lowest abstraction layers shown on the Fig.~\ref{image:commonTSArch}. Its API provides the following operations: 
 
 \begin{itemize}
-    \item переключение текущего физического способа взаимодействия с целевым устройством (контроллером робота) между Bluetooth, USB и Wi-Fi,
-    \item указание адреса устройства в терминах физического протокола (это может быть номер COM-порта в случае с взаимодействием по Bluetooth, IP-адрес или имя хоста в случае с взаимодействием по Wi-Fi),
-    \item подключение-отключение к целевому устройству,
-    \item посылка набора байтов на целевое устройство,
-    \item события получения набора байтов с целевого устройства,
-    \item события изменения статуса подключения (такие события вырабатываются, если связь с роботом установилась или разорвалась),
-    \item события, оповещающие обо всех произошедших ошибках с локализованным их описанием.
+    \item changing current transmission medium (currently Bluetooth, Wi-Fi and USB are supported),
+    \item setting device address in terms of a chosen medium (e.g. COM port number in case of Bluetooth, IP address or host name in case of Wi-Fi),
+    \item connecting to and disconnrect from a remote device,
+    \item transfering byte arrays to a remove device,
+    \item handling recieving data from a remove device,
+    \item handling connection status change (i.e. connection setup or termination events),
+    \item handling errors.
 \end{itemize}
 
-Взаимодействие по USB происходит посредством библиотеки libusb\footnote{http://libusb.org/ (дата обращения: 14.05.2016)}, для реализации обмена по Bluetooth используется библиотека QextSerialPort\footnote{https://github.com/qextserialport/ (дата обращения: 14.05.2016)}, взаимодействие по Wi-Fi происходит поверх протоколов TCP и UDP посредством библиотеки QtNetwork, сложные протоколы коммуникации (такие как конфигурирование робота ТРИК перед запуском программы на исполнение) реализованы посредством Qt State Machine Framework. Процесс общения с целевым устройством происходит в отдельном потоке, чтобы не <<замораживать>> пользовательский интерфейс. Конкретные реализации механизмов коммуникации в подсистеме могут быть расширены и подменены другими компонентами <<извне>>, это используется, например, для совместимости TRIK Studio со стандартным драйвером Lego NXT. Отметим, что взаимодействие через него --- это не единственный способ общения с контроллером NXT по USB в TRIK Studio, в среде реализован собственный драйвер взаимодействия с Lego NXT, однако, в отличие от официального, работающий на всех поддерживаемых операционных системах через libusb.
+USB communication is implemented using libusb\footnote{http://libusb.org/ (accessed: 07.02.2017)} library, Bluetooth communication is based on QextSerialPort\footnote{https://github.com/qextserialport/ (accessed: 07.02.2017)} library, Wi-Fi communication is implemented over TCP and UDP protocols using QtNetwork library, complex communication protocols (like configuring TRIK robots before running programs) are built upon Qt State Machine Framework. The communication process is run in a separate thread to prevent freezing the main user interface. Particular implemetations of communication mechanisms could be extended and replaced with other components. For examples, it is done for integrating TRIK Studio with the official Lego NXT driver. It worth noting that using this driver is not the only way to communicate with Lego NXT controllers over USB, TRIK Studio contains our own implementation of such a driver. Unlike the official one our driver works over libusb on all supported operating systems.
 
 \section{Interpreters}
 \label{chapter:interpreters}
