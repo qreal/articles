@@ -253,7 +253,7 @@ One obvious limitation of the target textual language for code generation is tha
  
 \section{Textual language parser and interpreter}
 \label{chapter:parser}
-TRIK Studio uses visual languages for robots programming, but arithmetic expressions, intrinsic function calls and so on are better represented with textual strings (in fact, NXT-G tries to use visual blocks even for arithmetic expressions, representing them as syntax trees, it is very inconvenient). As a textual part of a language for both visual languages TRIK Studio uses a subset of Lua 5.3\footnote{https://www.lua.org/ (accessed: 07.02.2017)}, customized for our needs. The Decision to implement our own parser and interpreter of a textual language was made under these considerations:
+TRIK Studio uses visual languages for robots programming, but arithmetic expressions, intrinsic function calls and so on are better represented with textual strings (in fact, NXT-G tries to use visual blocks even for arithmetic expressions, representing them as syntax trees, it is very inconvenient). As a textual part of a language for both visual languages TRIK Studio uses a subset of Lua 5.3\footnote{https://www.lua.org/ (accessed: 07.02.2017)}, customized for our needs. The decision to implement our own parser and interpreter of a textual language was made under these considerations:
 
 \begin{itemize}
 	\item we needed a small textual language with lightweight syntax and without explicit typing since it shall be used by non-programmers;
