@@ -13,7 +13,8 @@
 \usepackage{fontspec}
 \setmainfont{FreeSerif}
 
-\usepackage{caption}
+\usepackage[font=small]{caption}
+\captionsetup{singlelinecheck = false, justification=justified}
 \usepackage{float}
 \usepackage[colorlinks,filecolor=blue,citecolor=green,unicode,xetex]{hyperref}
 \usepackage{cmap}
@@ -33,26 +34,23 @@
 \author{
 	\IEEEauthorblockN{Dmitry Mordvinov}
 	\IEEEauthorblockA{
-		Department of Software Engineering \\
 		St.-Petersburg State University \\
 		St.Petersburg, Russia \\
-		Email: dmitry.mordvinov@se.math.spbu.ru
+		dmitry.mordvinov@se.math.spbu.ru
 	}
 \and
 	\IEEEauthorblockN{Yurii Litvinov}
 	\IEEEauthorblockA{
-		Department of Software Engineering \\
 		St.-Petersburg State University \\
 		St.Petersburg, Russia \\
-		Email: y.litvinov@spbu.ru 
+		y.litvinov@spbu.ru
 	}
 \and
 	\IEEEauthorblockN{Timofey Bryksin}
 	\IEEEauthorblockA{
-		Department of Software Engineering \\
 		St.-Petersburg State University \\
 		St.Petersburg, Russia \\
-		Email: t.bryksin@spbu.ru 
+		t.bryksin@spbu.ru
 	}
 }
 
@@ -99,7 +97,6 @@ Code generation mode enables users to move from visual to textual programs. Gene
 TRIK Studio's user interface is shown on Fig.~\ref{image:TS_interface}. It displays a process of debugging a program that passes the maze using virtual simulation model.
 
 \begin{figure*}[ht]
-    \centering
     \includegraphics[width=\textwidth]{TS_CF_Labyrinth.png}
     \caption{TRIK Studio's user interface}
     \label{image:TS_interface}
@@ -128,9 +125,8 @@ All language blocks are devided into four groups.
 \end{itemize}
 
 \begin{figure*}[ht]
-    \centering
     \includegraphics[width=0.8\textwidth]{TS_CF_Labyrinth_Diagram.png}
-    \caption{The program of traversing the maze using right-hand rule. The first four blocks initialize the program: set the wall proximity variable, turn the robot motors on, after that the robot moves for one second to enter the maze. The second four blocks define the main control loop. Each ten milliseconds the robot checks using its infrared sensors if it can move forward or right (the \texttt{sensorA2 <= threshold \&\& sensorA1 <= threshold} condition). If it can move forward, the movement will be performed using proportional control over the right sensor data (the ``Regulator'' subprogram). If there are walls in front of the robot and to the right, it turn 90 degrees left (the ``Turn left'' subprogram)}.
+    \caption{The program of traversing the maze using right-hand rule. The first four blocks initialize the program: set the wall proximity variable, turn the robot motors on, after that the robot moves for one second to enter the maze. The second four blocks define the main control loop. Each ten milliseconds the robot checks using its infrared sensors if it can move forward or right (the \texttt{sensorA2 <= threshold \&\& sensorA1 <= threshold} condition). If it can move forward, the movement will be performed using proportional control over the right sensor data (the ``Regulator'' subprogram). If there are walls in front of the robot and to the right, it turn 90 degrees left (the ``Turn left'' subprogram).}
     \label{image:TS_CF_Example}
 \end{figure*}
 
@@ -144,7 +140,6 @@ The domain-specific approach (\textit{DSM-approach})~\cite{koznov2008} was emplo
 Users that mastered the control-flow language can move on to a more complex, but more convenient and powerful data-flow visual language. Unlike control-flow programs where control is passed according to edges between nodes, in data-flow programs blocks are executed simultaneously and communicate with each other by sending data tokens via channels. For instance, a data-flow program can have several entry points (most often they are robot sensors that send each other data for processing in chains), while a control-flow program must always have a single entry point. This language also has blocks for basic algorithmic expressions, blocks for interaction with all robot devices, drawing blocks, etc. Almost always data-flow programs turn out to be more concise than their control-flow analogues. For example, Fig.~\ref{image:alongTheBox_CF_DF} shows a proportional controller implemented in the control-flow language is compared with proportional-derivative controller implemented in the data-flow language.
 
 \begin{figure}[ht]
-    \centering
     \includegraphics[width=\columnwidth]{TS_AlongTheBox_Comparison.png}
     \caption{Controllers implemented in different visual languages}
     \label{image:alongTheBox_CF_DF}
@@ -166,7 +161,6 @@ Fig.~\ref{image:commonTSArch} presents high-level architecture of TRIK Studio. T
 TRIK Studio core in its turn is a plug-in module for QReal DSM platform. It modifies QReal's user interface, adding several toolbars and windows, like 2D simulation window, sensor configuration window, variable watch list and graphs window, etc. The core loads all robot model specifications and provides them to all other subsystems, provides user with information about interpretation and code generation processes, etc. Along with modules implementing TRIK Studio tools, visual language modules (that are created using the QReal platform itself) are also plugged into the QReal core. Implementation details of lower layers from Fig.~\ref{image:commonTSArch} are provided in the subsequent sections.
 
 \begin{figure*}[ht]
-    \centering
     \includegraphics[width=0.6\textwidth]{TS_Common_Architecture.png}
     \caption{High-level TRIK Studio architecture}
     \label{image:commonTSArch}
@@ -197,7 +191,6 @@ USB communication is implemented using \texttt{libusb}\footnote{http://libusb.or
 An interpreter translates visual diagrams into a sequence of commands for a target device (see Fig.~\ref{image:interpretersTSArch}). The hierarchy of devices is build in a way that it does not matter to an interpreter if it works with a real device of a virtual one. Each device is represented by a C++ class containing code for interaction with this device. These device classes are grouped according to robotic kits they belong to and put in plug-in modules. Device classes use communication subsystem for data interchange over physical channels (see Section~\ref{chapter:communications}) and 2D and 3D simulators API when working with virtual robot models. 
 
 \begin{figure}[ht]
-    \centering
     \includegraphics[width=0.9\columnwidth]{TS_Interpreter_Architecture.png}
     \caption{Diagram interpretation workflow}
     \label{image:interpretersTSArch}
@@ -230,7 +223,6 @@ Considering these issues implementation of code generation subsystem in TRIK Stu
 The first task is purely of architectural nature. The solution it is shown on Fig.~\ref{image:generatorsArchitecture}. The main idea  is to divide code generation process into two steps. First, the diagram is translated into a representation independent of a target language --- a \textit{semantic tree}. Semantic trees reorder the control flow graph model into a tree model regardless of whether the diagram is structural or not. If it is, a parent node in the semantic tree always corresponds to an execution block in generated code, and its children nodes correspond to statements of this block, which exclude \texttt{goto}. An outline of the code generation process is shown in Fig.~\ref{image:generatorsArchitecture}.
 
 \begin{figure*}[ht]
-    \centering
     \includegraphics[width=0.6\textwidth]{TS_Generators_Architecture.png}
     \caption{Code generation subsystem's architecture}
     \label{image:generatorsArchitecture}
